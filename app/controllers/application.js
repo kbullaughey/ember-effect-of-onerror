@@ -3,7 +3,7 @@ import $ from 'jquery';
 import RSVP, { Promise as EmberPromise, reject } from 'rsvp';
 import { bind } from '@ember/runloop';
 
-var registerGlobalHandler = false;
+var registerGlobalHandler = true;
 
 function evidence(msg) {
   $('body').append("<div>"+msg+"</div>");
@@ -25,9 +25,7 @@ export default Controller.extend({
     triggerChain() {
       this.step1()
         .then(bind(this, this.step2), bind(this, this.step1Problem))
-        .then(function() {
-          evidence("success");
-        });
+        .then(function() { evidence("success"); });
     },
   },
   step1() {
